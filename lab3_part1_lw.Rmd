@@ -1,0 +1,39 @@
+---
+title: 'Part 1: binary logistic regression'
+author: "Laurel Wee"
+date: "1/21/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(palmerpenguins)
+library(GGally)
+library(broom)
+library(jtools)
+```
+
+```{r}
+penguins %>% 
+  select(species, bill_length_mm:sex) %>% 
+  ggpairs(aes(color = species))
+```
+
+Create a subset with only Adelie and Chinstrap penguins.
+```{r}
+adelie_chinstrap <- penguins %>% 
+  filter(species %in% c("Adelie","Chinstrap")) %>% 
+  mutate(species = fct_drop(species))
+```
+
+Let's just dataviz of those two species:
+```{r}
+ggplot(data = adelie_chinstrap, aes(x = body_mass_g, y = flipper_length_mm))+
+  geom_point(aes(color = sex))+
+  facet_wrap(~species)
+```
+
+
+
+
